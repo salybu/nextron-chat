@@ -1,14 +1,9 @@
-import React from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogActions from '@material-ui/core/DialogActions';
-import Typography from '@material-ui/core/Typography';
+import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Typography } from '@material-ui/core';
 import Link from '../components/Link';
+import SignInComponent from '../components/auth/SignIn';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,16 +14,16 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function Home() {
+const Login = (): JSX.Element => {
   const classes = useStyles({});
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const handleClick = () => setOpen(true);
 
   return (
-    <React.Fragment>
+    <>
       <Head>
-        <title>Home - Nextron (with-typescript-material-ui)</title>
+        <title>Nextron Chat - Login</title>
       </Head>
       <div className={classes.root}>
         <Dialog open={open} onClose={handleClose}>
@@ -42,22 +37,19 @@ function Home() {
             </Button>
           </DialogActions>
         </Dialog>
-        <Typography variant='h4' gutterBottom>
-          Material-UI
-        </Typography>
-        <Typography variant='subtitle1' gutterBottom>
-          with Nextron
-        </Typography>
-        <img src='/images/logo.png' />
         <Typography gutterBottom>
           <Link href='/next'>Go to the next page</Link>
         </Typography>
         <Button variant='contained' color='secondary' onClick={handleClick}>
           Super Secret Password
         </Button>
+        <SignInComponent />
+        <Typography gutterBottom>
+          <Link href='/signUp'>Go to the Sign Up page</Link>
+        </Typography>
       </div>
-    </React.Fragment>
+    </>
   );
-}
+};
 
-export default Home;
+export default Login;
