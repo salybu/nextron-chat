@@ -36,6 +36,7 @@ const useAuth = () => {
     setLoading(true);
     try {
       await auth.signInWithEmailAndPassword(user.email, user.password);
+      router.replace('/users');
     } catch (error) {
       signInError(error);
     }

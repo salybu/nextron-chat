@@ -6,4 +6,7 @@ module.exports = {
 
     return config;
   },
+  images: {
+    domains: ['mui.com', 'lh3.googleusercontent.com'],
+  },
 };
