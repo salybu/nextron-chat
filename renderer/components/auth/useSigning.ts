@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import { auth } from '../../lib/firebase';
+// import { useRouter } from 'next/router';
+import { useRouter } from 'next/dist/client/router';
+import { AuthService } from '../../lib/api/AuthService';
 import { userAuth } from '../../lib/type';
 
-const useAuth = () => {
-  const [user, setUser] = useState<userAuth>(null);
-  const [errorMessage, setErrorMessage] = useState<string>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-
+const useSigning = () => {
   const router = useRouter();
+
+  const [userForm, setUserForm] = useState<userAuth>(null);
+  const [errorMessage, setErrorMessage] = useState<string>(null);
+
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { id, value } = e.target;
-    setUser({ ...user, [id]: value });
+    setUserForm({ ...userForm, [id]: value });
   };
 
   const signUp = async (): Promise<any> => {
@@ -20,11 +22,11 @@ const useAuth = () => {
       return;
     }
 
-    try {
-      await auth.createUserWithEmailAndPassword(user.email, user.password);
-      router.replace('/home');
-    } catch (error) {
+    const { error } = await AuthService.signUp(userForm);
+    if (error) {
       signUpError(error);
+    } else {
+      router.replace('/home');
     }
   };
 
@@ -33,32 +35,23 @@ const useAuth = () => {
       return;
     }
 
-    setLoading(true);
-    try {
-      await auth.signInWithEmailAndPassword(user.email, user.password);
-      router.replace('/users');
-    } catch (error) {
+    const { user, error } = await AuthService.login(userForm);
+    if (error) {
       signInError(error);
+    } else if (!error && user) {
+      router.replace('/users');
     }
-    setLoading(false);
   };
 
   const signOut = async () => {
-    setLoading(true);
-    try {
-      await auth.signOut();
-    } catch (error) {
-      setErrorMessage('Something went wrong. Please try logging out again.');
-      console.error(error);
-    }
-    setLoading(false);
+    await AuthService.logout();
   };
 
   const Validation = (): boolean => {
-    if (!user.email) {
+    if (!userForm.email) {
       setErrorMessage('fill in the email');
       return false;
-    } else if (!user.password) {
+    } else if (!userForm.password) {
       setErrorMessage('fill in the password');
       return false;
     }
@@ -95,7 +88,7 @@ const useAuth = () => {
     console.error(error);
   };
 
-  return { user, loading, errorMessage, onChange, signUp, signIn, signOut };
+  return { userForm, loading, errorMessage, onChange, signUp, signIn, signOut };
 };
 
-export default useAuth;
+export default useSigning;

@@ -1,7 +1,7 @@
-import useAuth from './useAuth';
+import useSigning from './useSigning';
 
 const SignUp = (): JSX.Element => {
-  const { user, loading, errorMessage, onChange, signUp } = useAuth();
+  const { userForm, loading, errorMessage, onChange, signUp, signOut } = useSigning();
 
   return (
     <>
@@ -11,9 +11,9 @@ const SignUp = (): JSX.Element => {
         <fieldset disabled={loading}>
           <div>
             <label htmlFor='email'>Email:</label>
-            <input id='email' type='email' value={user?.email} onChange={onChange} />
+            <input id='email' type='email' value={userForm?.email} onChange={onChange} />
             <label htmlFor='password'>Password:</label>
-            <input id='password' type='password' value={user?.password} onChange={onChange} />
+            <input id='password' type='password' value={userForm?.password} onChange={onChange} />
           </div>
           <button onClick={signUp}>Create User</button>
         </fieldset>
