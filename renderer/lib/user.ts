@@ -1,8 +1,8 @@
 import { UserRecord } from 'firebase-admin/lib/auth/user-record';
 import { callAllUsers } from './firebase';
-import { User } from './type';
+import { UserInfo } from './type';
 
-export const mapUser = (user: UserRecord): User => {
+export const mapUser = (user: UserRecord): UserInfo => {
   const { uid, email, displayName, photoURL } = user;
   return {
     id: uid,
@@ -13,7 +13,7 @@ export const mapUser = (user: UserRecord): User => {
 };
 
 export const getAllUsers = async () => {
-  let userArr: User[] = [];
+  let userArr: UserInfo[] = [];
   const allUsers: UserRecord[] = await callAllUsers();
   allUsers.forEach((user) => {
     userArr.push(mapUser(user));

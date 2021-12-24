@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import Img from 'next/image';
 import type { NextPage } from 'next';
 import { Typography, Box } from '@material-ui/core';
 import Link from '../components/Link';
-import { User } from '../lib/type';
+import { UserInfo } from '../lib/type';
 import { getAllUsers } from '../lib/user';
+import UserItem from '../components/user/UserItem';
 
 const Users: NextPage = () => {
-  const [users, setUsers] = useState<User[]>();
+  const [users, setUsers] = useState<UserInfo[]>();
 
   useEffect(() => {
     (async () => {
-      const allUsers: User[] = await getAllUsers();
+      const allUsers: UserInfo[] = await getAllUsers();
       setUsers(allUsers);
     })();
   }, []);
@@ -25,15 +25,7 @@ const Users: NextPage = () => {
       <main>
         <Typography gutterBottom>유저목록</Typography>
         {users?.map((user) => (
-          <Link href='/chat/[id]' as={`/chat/${user.id}`}>
-            <Box sx={{ flexGrow: 1, display: 'flex', padding: 15 }}>
-              <Img src={user.profilePic} width='100' height='100'></Img>
-              <Box sx={{ padding: 10 }}>
-                <Typography>{user.name}</Typography>
-                <Typography gutterBottom>{user.email}</Typography>
-              </Box>
-            </Box>
-          </Link>
+          <UserItem user={user} />
         ))}
         <Typography gutterBottom>
           <Link href='/home'>Go to the Home page</Link>
