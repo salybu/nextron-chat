@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 // import { useRouter } from 'next/router';
 import { useRouter } from 'next/dist/client/router';
+import useAuth from '../../lib/auth';
 import { AuthService } from '../../lib/api/AuthService';
+import { mapUser } from '../../lib/user';
 import { userAuth } from '../../lib/type';
 
 const useSigning = () => {
   const router = useRouter();
+  const { loggedUser, setLoggedUser } = useAuth();
 
   const [userForm, setUserForm] = useState<userAuth>(null);
   const [errorMessage, setErrorMessage] = useState<string>(null);
@@ -39,12 +42,19 @@ const useSigning = () => {
     if (error) {
       signInError(error);
     } else if (!error && user) {
+      setLoggedUser(mapUser(user));
       router.replace('/users');
     }
   };
 
   const signOut = async () => {
-    await AuthService.logout();
+    const { error } = await AuthService.logout();
+    if (error) {
+      setErrorMessage('Something went wrong. Please try logging out again.');
+      console.error(error);
+    } else {
+      setLoggedUser(null);
+    }
   };
 
   const Validation = (): boolean => {
