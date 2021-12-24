@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Typography from '@material-ui/core/Typography';
 import Link from '../components/Link';
 import SignUpComponent from '../components/auth/SignUp';
+import { withPublic } from '../lib/routes';
 
 const SignUp: NextPage = () => {
   return (
@@ -20,4 +21,4 @@ const SignUp: NextPage = () => {
   );
 };
 
-export default SignUp;
+export default withPublic(SignUp);

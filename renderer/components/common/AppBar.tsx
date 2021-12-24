@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { styled, AppBar, Box, Toolbar, Typography, Button } from '@material-ui/core';
 import { compose, spacing, palette, styleFunctionSx } from '@material-ui/system';
+import useAuth from '../../lib/auth';
 
 const styleFunction = styleFunctionSx(compose(spacing, palette));
 const StyledTypo = styled(Typography)(styleFunction);
@@ -13,6 +14,8 @@ const FixedAppBar = styled(AppBar)(() => ({
 }));
 
 const CustomAppBar = () => {
+  const { logout } = useAuth();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <FixedAppBar>
@@ -20,7 +23,9 @@ const CustomAppBar = () => {
           <StyledTypo variant='h6' sx={{ marginRight: 'auto' }}>
             Nextron Chat
           </StyledTypo>
-          <Button color='inherit'>Logout</Button>
+          <Button onClick={logout} color='inherit'>
+            Logout
+          </Button>
         </Toolbar>
       </FixedAppBar>
     </Box>

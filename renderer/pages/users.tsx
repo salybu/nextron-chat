@@ -6,6 +6,7 @@ import Link from '../components/Link';
 import { UserInfo } from '../lib/type';
 import { getAllUsers } from '../lib/user';
 import UserItem from '../components/user/UserItem';
+import { withProtected } from '../lib/routes';
 
 const Users: NextPage = () => {
   const [users, setUsers] = useState<UserInfo[]>();
@@ -35,4 +36,4 @@ const Users: NextPage = () => {
   );
 };
 
-export default Users;
+export default withProtected(Users);

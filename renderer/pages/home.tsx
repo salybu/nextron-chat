@@ -4,6 +4,7 @@ import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Typography } from '@material-ui/core';
 import Link from '../components/Link';
 import SignInComponent from '../components/auth/SignIn';
+import { withPublic } from '../lib/routes';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,4 +53,4 @@ const Login = (): JSX.Element => {
   );
 };
 
-export default Login;
+export default withPublic(Login);
