@@ -9,8 +9,9 @@ export default function useUserContext() {
 
 export const UserContextProvider = (props: any) => {
   const [users, setUsers] = useState<UserInfo>(null);
+  const [allUsers, setAllUsers] = useState<UserInfo>(null);
 
-  const value = { users, setUsers };
+  const value = { users, setUsers, allUsers, setAllUsers };
 
   return <userContext.Provider value={value} {...props} />;
 };

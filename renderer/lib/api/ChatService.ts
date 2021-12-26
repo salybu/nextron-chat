@@ -20,4 +20,14 @@ export const ChatService = {
       };
     }
   },
+  getMyChatRoom: async () => {
+    try {
+      return await roomRef.get().then((querySnapshot) => {
+        return querySnapshot.docs.map((doc) => {
+          const { members, type } = doc.data();
+          return { id: doc.id, members, type };
+        });
+      });
+    } catch (error) {}
+  },
 };

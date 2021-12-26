@@ -9,3 +9,15 @@ export type UserInfo = {
   name: string;
   profilePic: string;
 };
+
+export type roomWithUID = {
+  id: string;
+  members: string[];
+  type: number;
+};
+
+export type ChatRoom = {
+  id: string;
+  members: UserInfo[];
+  type: number;
+};

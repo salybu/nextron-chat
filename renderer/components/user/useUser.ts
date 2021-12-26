@@ -7,7 +7,7 @@ import useUserContext from '../../lib/context/users';
 
 const useUser = () => {
   const { loggedUser } = useAuth();
-  const { users, setUsers } = useUserContext();
+  const { users, allUsers, setUsers, setAllUsers } = useUserContext();
 
   useEffect(() => {
     getUsers();
@@ -23,17 +23,22 @@ const useUser = () => {
     };
   };
 
+  const getUserById = (id: string): UserInfo => {
+    return allUsers.filter((user) => user.id === id)[0];
+  };
+
   const getUsers = async () => {
     let userArr: UserInfo[] = [];
     const AllUsers: UserRecord[] = await callAllUsers();
     AllUsers.forEach((user) => {
       userArr.push(mapUser(user));
     });
+    setAllUsers(userArr);
     const otherUsers = userArr.filter((user) => user.id !== loggedUser.id);
     setUsers(otherUsers);
   };
 
-  return { users };
+  return { users, getUserById };
 };
 
 export default useUser;

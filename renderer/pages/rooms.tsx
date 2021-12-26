@@ -1,16 +1,32 @@
-import Head from 'next/head';
-import { Typography, Box } from '@material-ui/core';
-import { withProtected } from '../lib/routes';
 import type { NextPage } from 'next';
+import Head from 'next/head';
+import { Box } from '@material-ui/core';
+import Link from '../components/Link';
+import { withProtected } from '../lib/routes';
+import useAuth from '../lib/context/auth';
+import useChat from '../components/chat/useChat';
+import ChatIcon from '@material-ui/icons/Chat';
 
 const Rooms: NextPage = () => {
+  const { loggedUser } = useAuth();
+  const { rooms } = useChat();
+
   return (
     <>
       <Head>
         <title>Nextron Chat - Rooms</title>
       </Head>
       <main>
-        <Typography gutterBottom>채팅방 목록</Typography>
+        {rooms?.map((room) => (
+          <Link href='/room/[id]' as={`/room/${room.id}`}>
+            <Box sx={{ display: 'flex', padding: 15, border: 'solid 1px black' }}>
+              <ChatIcon />
+              {room.members.map((member) => (
+                <div>{member.id !== loggedUser.id && <>{member.email + ', '}</>}</div>
+              ))}
+            </Box>
+          </Link>
+        ))}
       </main>
     </>
   );
