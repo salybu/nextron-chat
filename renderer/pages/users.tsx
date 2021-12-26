@@ -1,22 +1,12 @@
-import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import type { NextPage } from 'next';
-import { Typography, Box } from '@material-ui/core';
-import Link from '../components/Link';
-import { UserInfo } from '../lib/type';
-import { getAllUsers } from '../lib/user';
+import { Typography } from '@material-ui/core';
 import UserItem from '../components/user/UserItem';
 import { withProtected } from '../lib/routes';
+import useUser from '../components/user/useUser';
 
 const Users: NextPage = () => {
-  const [users, setUsers] = useState<UserInfo[]>();
-
-  useEffect(() => {
-    (async () => {
-      const allUsers: UserInfo[] = await getAllUsers();
-      setUsers(allUsers);
-    })();
-  }, []);
+  const { users } = useUser();
 
   return (
     <>
@@ -28,9 +18,6 @@ const Users: NextPage = () => {
         {users?.map((user) => (
           <UserItem user={user} />
         ))}
-        <Typography gutterBottom>
-          <Link href='/home'>Go to the Home page</Link>
-        </Typography>
       </main>
     </>
   );

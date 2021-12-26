@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
 import useAuth from '../../lib/context/auth';
 import { AuthService } from '../../lib/api/AuthService';
-import { mapUser } from '../../lib/user';
+import { mapUser } from '../../lib/utils';
 import { userAuth } from '../../lib/type';
 
 const useSigning = () => {
