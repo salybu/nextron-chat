@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore'; // 없으면 const firestore = firebase.firestore(); 부분 error
 import 'firebase/compat/auth';
 
 import * as admin from 'firebase-admin';
@@ -45,4 +46,8 @@ export const callAllUsers = async () => {
   return userRecords.users;
 };
 
+// firestore
+const firestore = firebase.firestore();
+
+export default firestore;
 export { auth, firebase };

@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
+import router from 'next/router';
 import { Box, Button, Typography, Modal, Checkbox, Fab, makeStyles, createStyles } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { UserInfo } from '../../lib/type';
 import UserItem from '../../components/user/UserItem';
+import useAuth from '../../lib/context/auth';
+import { ChatService } from '../../lib/api/ChatService';
 import useUser from '../user/useUser';
 
 const style = {
@@ -35,6 +38,7 @@ const FloatingButton = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const { loggedUser } = useAuth();
   const { users } = useUser();
 
   const [isChecked, setIsChecked] = useState<Object>();
@@ -75,6 +79,13 @@ const FloatingButton = () => {
     });
   };
 
+  const createChatRoom = async () => {
+    const memberArr = [...selected, loggedUser.id];
+    const { id, error } = await ChatService.createChatRoom(memberArr);
+    setOpen(false);
+    router.push(`/room/${id}`);
+  };
+
   return (
     <>
       <Fab onClick={handleOpen} color='primary' aria-label='add' className={classes.fab}>
@@ -92,7 +103,7 @@ const FloatingButton = () => {
               <UserItem user={user} />
             </Box>
           ))}
-          <Button>make a chatting room</Button>
+          <Button onClick={createChatRoom}>make a chatting room</Button>
         </Box>
       </Modal>
     </>
