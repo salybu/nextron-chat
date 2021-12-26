@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import { useRouter } from 'next/router';
 import { useRouter } from 'next/dist/client/router';
-import useAuth from '../../lib/auth';
+import useAuth from '../../lib/context/auth';
 import { AuthService } from '../../lib/api/AuthService';
 import { mapUser } from '../../lib/user';
 import { userAuth } from '../../lib/type';

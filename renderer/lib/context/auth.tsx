@@ -1,7 +1,7 @@
 import { useRouter } from 'next/dist/client/router';
 import { Context, createContext, useContext, useEffect, useState } from 'react';
-import { AuthService } from './api/AuthService';
-import { UserInfo } from './type';
+import { AuthService } from '../api/AuthService';
+import { UserInfo } from '../type';
 
 const authContext: Context<any> = createContext<any>('');
 

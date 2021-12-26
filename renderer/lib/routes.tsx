@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 // import { useRouter } from 'next/dist/client/router';
-import useAuth from './auth';
+import useAuth from './context/auth';
 
 export function withPublic(Component: NextPage) {
   return function WithPublic(props: any) {

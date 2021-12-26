@@ -5,7 +5,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { theme } from '../lib/theme';
 import type { AppProps } from 'next/app';
 import AppLayout from '../layouts/AppLayout';
-import { AuthProvider } from '../lib/auth';
+import { AuthProvider } from '../lib/context/auth';
+import { UserContextProvider } from '../lib/context/users';
 
 export default function (props: AppProps) {
   const { Component, pageProps } = props;
@@ -25,9 +26,11 @@ export default function (props: AppProps) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AuthProvider>
-          <AppLayout>
-            <Component {...pageProps} />
-          </AppLayout>
+          <UserContextProvider>
+            <AppLayout>
+              <Component {...pageProps} />
+            </AppLayout>
+          </UserContextProvider>
         </AuthProvider>
       </ThemeProvider>
     </React.Fragment>

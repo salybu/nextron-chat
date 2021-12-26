@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled, AppBar, Box, Toolbar, Typography, Button } from '@material-ui/core';
 import { compose, spacing, palette, styleFunctionSx } from '@material-ui/system';
-import useAuth from '../../lib/auth';
+import useAuth from '../../lib/context/auth';
 
 const styleFunction = styleFunctionSx(compose(spacing, palette));
 const StyledTypo = styled(Typography)(styleFunction);
