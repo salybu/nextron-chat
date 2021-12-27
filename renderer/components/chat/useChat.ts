@@ -57,7 +57,13 @@ const useChat = () => {
     };
   };
 
-  return { rooms, messages, getAllMessage };
+  const submitMessage = async (roomId, uid, messageTxt) => {
+    const { message, error } = await ChatService.sendMessage(roomId, uid, messageTxt);
+    const mapped = mapMessage(message);
+    setMessages([...messages, mapped]);
+  };
+
+  return { rooms, messages, getAllMessage, submitMessage };
 };
 
 export default useChat;

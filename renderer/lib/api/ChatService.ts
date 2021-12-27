@@ -44,4 +44,25 @@ export const ChatService = {
         });
     } catch (error) {}
   },
+  sendMessage: async (roomId: string, uid: string, message: string) => {
+    try {
+      const messages = await messageRef.doc(roomId).collection('messages').add({
+        sentBy: uid,
+        messageText: message,
+        sentAt: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+      const result = await messages.get().then((querySnapshot) => {
+        return querySnapshot.data();
+      });
+      return {
+        message: result,
+        error: null,
+      };
+    } catch (error) {
+      return {
+        message: null,
+        error,
+      };
+    }
+  },
 };

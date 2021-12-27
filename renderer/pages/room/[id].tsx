@@ -1,25 +1,33 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
-import { useEffect } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import useAuth from '../../lib/context/auth';
 import useChat from '../../components/chat/useChat';
 import ChatMessage from '../../components/chat/ChatMessage';
 import { withProtected } from '../../lib/routes';
+import ChatInput from '../../components/chat/ChatInput';
 
 const Room: NextPage = () => {
   const {
     query: { id },
   } = useRouter();
-
   const { loggedUser } = useAuth();
-  const { messages, getAllMessage } = useChat();
+  const { messages, getAllMessage, submitMessage } = useChat();
+
+  const [input, setInput] = useState<string>();
 
   useEffect(() => {
     (async () => {
       await getAllMessage(id as string);
     })();
   }, []);
+
+  const sendMessage = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    submitMessage(id as string, loggedUser.id, input);
+    setInput('');
+  };
 
   return (
     <>
@@ -31,6 +39,7 @@ const Room: NextPage = () => {
           <ChatMessage message={message} isSent={message.sentBy.id === loggedUser.id}></ChatMessage>
         ))}
       </main>
+      <ChatInput input={input} setInput={setInput} sendMessage={sendMessage} />
     </>
   );
 };
