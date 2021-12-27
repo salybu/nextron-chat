@@ -1,12 +1,11 @@
-import * as React from 'react';
-import { styled, AppBar, Box, Toolbar, Typography, Button } from '@material-ui/core';
-import { compose, spacing, palette, styleFunctionSx } from '@material-ui/system';
+import { useRouter } from 'next/router';
+import { styled, AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import useAuth from '../../lib/context/auth';
 
-const styleFunction = styleFunctionSx(compose(spacing, palette));
-const StyledTypo = styled(Typography)(styleFunction);
-
-const FixedAppBar = styled(AppBar)(() => ({
+const FixedAppBar = styled(AppBar)(({ theme }) => ({
+  color: `${theme.palette.common.white}`,
+  flexGrow: 1,
   position: 'sticky',
   top: 0,
   left: 0,
@@ -15,20 +14,25 @@ const FixedAppBar = styled(AppBar)(() => ({
 
 const CustomAppBar = () => {
   const { logout } = useAuth();
+  const router = useRouter();
+  const goBack = () => router.back();
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <FixedAppBar>
-        <Toolbar>
-          <StyledTypo variant='h6' sx={{ marginRight: 'auto' }}>
-            Nextron Chat
-          </StyledTypo>
-          <Button onClick={logout} color='inherit'>
-            Logout
-          </Button>
-        </Toolbar>
-      </FixedAppBar>
-    </Box>
+    <FixedAppBar>
+      <Toolbar>
+        {router.pathname == '/room/[id]' && (
+          <IconButton color='inherit' onClick={goBack}>
+            <ArrowBackIcon />
+          </IconButton>
+        )}
+        <Typography variant='h6' style={{ marginRight: 'auto' }}>
+          Nextron Chat
+        </Typography>
+        <Button onClick={logout} color='inherit'>
+          Logout
+        </Button>
+      </Toolbar>
+    </FixedAppBar>
   );
 };
 

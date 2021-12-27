@@ -3,6 +3,7 @@ import React from 'react';
 import FixedBottomNavigation from '../components/common/BottomNavigation';
 import AppBar from '../components/common/AppBar';
 import FloatingButton from '../components/common/FloatingBtn';
+import { Box } from '@material-ui/core';
 
 export default function AppLayout({ children }: any) {
   const router = useRouter();
@@ -11,8 +12,8 @@ export default function AppLayout({ children }: any) {
     return (
       <>
         <AppBar />
-        {children}
-        <FloatingButton />
+        <Box sx={{ mb: '56px' }}>{children}</Box>
+        {router.pathname !== '/room/[id]' && <FloatingButton />}
         <FixedBottomNavigation />
       </>
     );
