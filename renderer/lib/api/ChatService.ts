@@ -1,6 +1,8 @@
+import { firebase } from '../firebase';
 import firestore from '../../lib/firebase';
 
 const roomRef = firestore.collection('groups');
+const messageRef = firestore.collection('messagesss');
 
 export const ChatService = {
   createChatRoom: async (members: string[]) => {
@@ -28,6 +30,18 @@ export const ChatService = {
           return { id: doc.id, members, type };
         });
       });
+    } catch (error) {}
+  },
+  getMessages: async (roomId: string) => {
+    try {
+      return await messageRef
+        .doc(roomId.trim())
+        .collection('messages')
+        .orderBy('sentAt')
+        .get()
+        .then((querySnapshot) => {
+          return querySnapshot.docs.map((doc) => doc.data());
+        });
     } catch (error) {}
   },
 };

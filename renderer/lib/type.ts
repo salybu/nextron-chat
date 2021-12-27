@@ -21,3 +21,9 @@ export type ChatRoom = {
   members: UserInfo[];
   type: number;
 };
+
+export type ChatMessage = {
+  messageText: string;
+  sentBy: UserInfo;
+  sentAt: string;
+};
