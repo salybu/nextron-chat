@@ -1,12 +1,11 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import Img from 'next/image';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import useAuth from '../../lib/context/auth';
 import useChat from '../../components/chat/useChat';
+import ChatMessage from '../../components/chat/ChatMessage';
 import { withProtected } from '../../lib/routes';
-import { Box, Typography } from '@material-ui/core';
 
 const Room: NextPage = () => {
   const {
@@ -29,13 +28,7 @@ const Room: NextPage = () => {
       </Head>
       <main>
         {messages?.map((message) => (
-          <>
-            <Img src={message.sentBy.profilePic} width='50' height='50'></Img>
-            <Box sx={{ padding: 10 }}>
-              <Typography>{message.sentBy.email}</Typography>
-              <Typography gutterBottom>{message.messageText}</Typography>
-            </Box>
-          </>
+          <ChatMessage message={message} isSent={message.sentBy.id === loggedUser.id}></ChatMessage>
         ))}
       </main>
     </>
