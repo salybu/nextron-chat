@@ -1,14 +1,10 @@
-import type { NextPage } from 'next';
 import Head from 'next/head';
-import { Box } from '@material-ui/core';
-import Link from '../components/Link';
+import type { NextPage } from 'next';
 import { withProtected } from '../lib/routes';
-import useAuth from '../lib/context/auth';
 import useChat from '../components/chat/useChat';
-import ChatIcon from '@material-ui/icons/Chat';
+import ChatRoom from '../components/chat/ChatRoom';
 
 const Rooms: NextPage = () => {
-  const { loggedUser } = useAuth();
   const { rooms } = useChat();
 
   return (
@@ -18,14 +14,7 @@ const Rooms: NextPage = () => {
       </Head>
       <main>
         {rooms?.map((room) => (
-          <Link href='/room/[id]' as={`/room/${room.id}`}>
-            <Box sx={{ display: 'flex', padding: 15, border: 'solid 1px black' }}>
-              <ChatIcon />
-              {room.members.map((member) => (
-                <div>{member.id !== loggedUser.id && <>{member.email + ', '}</>}</div>
-              ))}
-            </Box>
-          </Link>
+          <ChatRoom room={room} />
         ))}
       </main>
     </>
