@@ -80,14 +80,14 @@ const UserInviteModal: React.FC<IModal> = ({ handleClose }): JSX.Element => {
       <Typography id='modal-modal-title' variant='h6' component='h2'>
         Invite members
       </Typography>
-      <Typography id='modal-modal-description'>Choose others who you want to chat</Typography>
+      <Typography id='modal-modal-description'>Choose others who you want to chat (more than 2)</Typography>
       <List className={classes.users}>
         {users?.map((user) => (
           <UserSelect key={user.id} user={user} isChecked={isChecked} handleChange={handleChange} />
         ))}
       </List>
-      <StyledButton onClick={createChatRoom} disabled={!selected?.length} className={classes.button}>
-        make a chatting room
+      <StyledButton onClick={createChatRoom} disabled={!(selected?.length > 1)} className={classes.button}>
+        make a Group Chatroom
       </StyledButton>
     </>
   );

@@ -7,9 +7,10 @@ const messageRef = firestore.collection('messages');
 export const ChatService = {
   createChatRoom: async (members: string[]) => {
     try {
+      const type = members.length > 2 ? 2 : 1;
       const docRef = await roomRef.add({
         members,
-        type: 1,
+        type,
       });
       return {
         id: docRef.id,
