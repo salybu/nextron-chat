@@ -27,3 +27,11 @@ export type ChatMessage = {
   sentBy: UserInfo;
   sentAt: string;
 };
+
+export interface IUser {
+  user: UserInfo;
+}
+
+export interface IModal {
+  handleClose: () => void;
+}
