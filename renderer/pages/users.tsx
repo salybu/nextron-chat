@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import type { NextPage } from 'next';
-import UserItem from '../components/user/UserItem';
 import { withProtected } from '../lib/routes';
 import useUser from '../components/user/useUser';
+import UserWithChat from '../components/user/UserwithChat';
 
 const Users: NextPage = () => {
   const { users } = useUser();
@@ -14,7 +14,7 @@ const Users: NextPage = () => {
       </Head>
       <main>
         {users?.map((user) => (
-          <UserItem key={user.id} user={user} padding={1.5} />
+          <UserWithChat key={user.id} user={user} />
         ))}
       </main>
     </>

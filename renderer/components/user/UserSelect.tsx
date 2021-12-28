@@ -11,7 +11,7 @@ const UserSelect: React.FC<IUserSelect> = ({ user, isChecked, handleChange }): J
   return (
     <ListItem key={user.id} style={{ padding: 0 }}>
       {isChecked && <Checkbox checked={isChecked[user.id]} onChange={handleChange} name={user.id} color='primary' />}
-      <UserItem user={user} padding={0.5} />
+      <UserItem user={user} padding={0.5} children={null} />
     </ListItem>
   );
 };

@@ -2,7 +2,7 @@ import { firebase } from '../firebase';
 import firestore from '../../lib/firebase';
 
 const roomRef = firestore.collection('groups');
-const messageRef = firestore.collection('messagesss');
+const messageRef = firestore.collection('messages');
 
 export const ChatService = {
   createChatRoom: async (members: string[]) => {
@@ -31,6 +31,20 @@ export const ChatService = {
             const { members, type } = doc.data();
             return { id: doc.id, members, type };
           });
+      });
+    } catch (error) {}
+  },
+  getPrivateChatRoom: async (loggedId: string, id: string) => {
+    try {
+      return await roomRef.get().then((querySnapshot) => {
+        return querySnapshot.docs
+          .filter((doc) => {
+            const { members, type } = doc.data();
+            if (type == 1 && members.includes(loggedId) && members.includes(id)) {
+              return true;
+            }
+          })
+          .map((doc) => doc.id)[0];
       });
     } catch (error) {}
   },

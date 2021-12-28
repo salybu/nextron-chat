@@ -4,15 +4,19 @@ import { IUser } from '../../lib/type';
 
 interface IUserItem extends IUser {
   padding: number;
+  children: JSX.Element;
 }
 
-const UserItem: React.FC<IUserItem> = ({ user, padding }): JSX.Element => {
+const UserItem: React.FC<IUserItem> = ({ user, padding, children }): JSX.Element => {
   return (
     <Box sx={{ flexGrow: 1, display: 'flex', p: padding }}>
-      <Img src={user.profilePic} width='100' height='100'></Img>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Img src={user.profilePic} height='100%' width='100%'></Img>
+      </Box>
       <Box sx={{ p: 2 }}>
         <Typography>{user.name}</Typography>
         <Typography gutterBottom>{user.email}</Typography>
+        {children}
       </Box>
     </Box>
   );
