@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const FloatingButton = () => {
+const FloatingButton = (): JSX.Element => {
   const classes = useStyles({});
 
   const [open, setOpen] = useState(false);

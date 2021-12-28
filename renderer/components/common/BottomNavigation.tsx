@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { Box, CssBaseline, BottomNavigation, BottomNavigationAction, Paper } from '@material-ui/core';
+import router from 'next/router';
+import { BottomNavigation, BottomNavigationAction, Paper } from '@material-ui/core';
 import { styled } from '@material-ui/styles';
 import GroupIcon from '@material-ui/icons/Group';
 import InsertCommentIcon from '@material-ui/icons/InsertComment';
@@ -12,30 +12,27 @@ const StyledPaper = styled(Paper)(() => ({
   right: 0,
 }));
 
-export default function FixedBottomNavigation() {
+const FixedBottomNavigation = (): JSX.Element => {
   const [value, setValue] = useState(0);
-  const router = useRouter();
 
   return (
-    <Box>
-      <CssBaseline />
-      <StyledPaper>
-        <BottomNavigation
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-            console.log(newValue);
-            if (newValue == 0) {
-              router.replace('/users');
-            } else if (newValue == 1) {
-              router.replace('/rooms');
-            }
-          }}
-        >
-          <BottomNavigationAction label='Users' icon={<GroupIcon />} />
-          <BottomNavigationAction label='Chatting Rooms' icon={<InsertCommentIcon />} />
-        </BottomNavigation>
-      </StyledPaper>
-    </Box>
+    <StyledPaper>
+      <BottomNavigation
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+          if (newValue == 0) {
+            router.replace('/users');
+          } else if (newValue == 1) {
+            router.replace('/rooms');
+          }
+        }}
+      >
+        <BottomNavigationAction label='Users' icon={<GroupIcon />} />
+        <BottomNavigationAction label='Chatting Rooms' icon={<InsertCommentIcon />} />
+      </BottomNavigation>
+    </StyledPaper>
   );
-}
+};
+
+export default FixedBottomNavigation;

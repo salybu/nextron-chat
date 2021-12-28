@@ -1,7 +1,12 @@
 import Img from 'next/image';
 import { Box, Typography } from '@material-ui/core';
+import { IUser } from '../../lib/type';
 
-const UserItem = ({ user, padding }) => {
+interface IUserItem extends IUser {
+  padding: number;
+}
+
+const UserItem: React.FC<IUserItem> = ({ user, padding }): JSX.Element => {
   return (
     <Box sx={{ flexGrow: 1, display: 'flex', p: padding }}>
       <Img src={user.profilePic} width='100' height='100'></Img>

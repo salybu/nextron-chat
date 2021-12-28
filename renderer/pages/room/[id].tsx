@@ -30,7 +30,7 @@ const Room: NextPage = () => {
     bottom?.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const sendMessage = (e: FormEvent<HTMLFormElement>) => {
+  const sendMessage = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     submitMessage(id as string, loggedUser.id, input);
     setInput('');
