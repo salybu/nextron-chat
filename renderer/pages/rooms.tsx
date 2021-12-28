@@ -14,7 +14,7 @@ const Rooms: NextPage = () => {
       </Head>
       <main>
         {rooms?.map((room) => (
-          <ChatRoom room={room} />
+          <ChatRoom key={room.id} room={room} />
         ))}
       </main>
     </>
