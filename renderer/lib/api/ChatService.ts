@@ -22,13 +22,15 @@ export const ChatService = {
       };
     }
   },
-  getMyChatRoom: async () => {
+  getMyChatRooms: async (id: string) => {
     try {
       return await roomRef.get().then((querySnapshot) => {
-        return querySnapshot.docs.map((doc) => {
-          const { members, type } = doc.data();
-          return { id: doc.id, members, type };
-        });
+        return querySnapshot.docs
+          .filter((doc) => doc.data().members.includes(id))
+          .map((doc) => {
+            const { members, type } = doc.data();
+            return { id: doc.id, members, type };
+          });
       });
     } catch (error) {}
   },

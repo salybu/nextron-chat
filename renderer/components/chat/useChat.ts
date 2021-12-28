@@ -13,34 +13,22 @@ const useChat = () => {
   const [messages, setMessages] = useState<ChatMessage[]>();
 
   useEffect(() => {
-    getMyChatRooms();
+    setMyChatRooms();
   }, []);
 
-  const mapRoom = (room: firebase.firestore.DocumentData): roomWithUID => {
-    return {
-      id: room.id,
-      members: room.members,
-      type: room.type,
-    };
+  const setMyChatRooms = async () => {
+    const myRooms = await ChatService.getMyChatRooms(loggedUser.id);
+    setRooms(mapRooms(myRooms));
   };
 
-  const getMyChatRooms = async () => {
-    let roomsArr = [];
-    const allRooms: roomWithUID[] = await ChatService.getMyChatRoom();
-    const filtered = allRooms.filter((room) => room.members.includes(loggedUser.id));
-
-    filtered.forEach((room) => {
-      roomsArr.push(mapRoom(room));
+  const mapRooms = (rooms: roomWithUID[]): ChatRoom[] => {
+    return rooms.map((room) => {
+      const members = room.members.map((member) => getUserById(member));
+      return {
+        ...room,
+        members,
+      };
     });
-
-    roomsArr.forEach((room) => {
-      let members = [];
-      room.members.forEach((id) => {
-        members.push(getUserById(id));
-      });
-      room.members = members;
-    });
-    setRooms(roomsArr);
   };
 
   const getAllMessage = async (id: string) => {
