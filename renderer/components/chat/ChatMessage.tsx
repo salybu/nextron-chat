@@ -1,4 +1,3 @@
-import Img from 'next/image';
 import { Box, createStyles, makeStyles, Typography } from '@material-ui/core';
 import { ChatMessage } from '../../lib/type';
 
@@ -30,7 +29,7 @@ const ChatMessageComponent: React.FC<IChatMessage> = ({ message, isSent }): JSX.
 
   return (
     <Box className={classes.root} sx={sentStyle.root}>
-      <Img src={message.sentBy.profilePic} width='50' height='50'></Img>
+      <img src={message.sentBy.profilePic} width='50' height='50'></img>
       <Box className={classes.message} sx={sentStyle.message}>
         <Typography>{message.sentBy.email}</Typography>
         <Typography>{message.messageText}</Typography>
