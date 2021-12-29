@@ -12,11 +12,7 @@ const Rooms: NextPage = () => {
       <Head>
         <title>Nextron Chat - Rooms</title>
       </Head>
-      <main>
-        {rooms?.map((room) => (
-          <ChatRoom key={room.id} room={room} />
-        ))}
-      </main>
+      <main>{rooms?.length == 0 ? <h2 style={{ textAlign: 'center' }}>no rooms here</h2> : rooms?.map((room) => <ChatRoom key={room.id} room={room} />)}</main>
     </>
   );
 };
