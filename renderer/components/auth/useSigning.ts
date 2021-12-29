@@ -8,9 +8,9 @@ import { userAuth } from '../../lib/type';
 
 const useSigning = () => {
   const router = useRouter();
-  const { loggedUser, setLoggedUser } = useAuth();
+  const { setLoggedUser } = useAuth();
 
-  const [userForm, setUserForm] = useState<userAuth>(null);
+  const [userForm, setUserForm] = useState<userAuth>({ email: '', password: '' });
   const [errorMessage, setErrorMessage] = useState<string>(null);
 
   const [loading, setLoading] = useState<boolean>(false);

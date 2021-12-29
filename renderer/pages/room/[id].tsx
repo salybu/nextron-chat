@@ -16,7 +16,7 @@ const Room: NextPage = () => {
   const { loggedUser } = useAuth();
   const { messages, getAllMessage, submitMessage } = useChat();
 
-  const [input, setInput] = useState<string>();
+  const [input, setInput] = useState<string>('');
 
   const bottom = useRef<HTMLSpanElement>();
 

@@ -11,7 +11,7 @@ const SignUp = (): JSX.Element => {
         <TextField label='email' id='email' type='email' variant='outlined' style={width100} onChange={onChange} value={userForm?.email} />
         <TextField label='password' id='password' type='password' variant='outlined' style={width100} onChange={onChange} value={userForm?.password} />
         <p>{errorMessage}</p>
-        <StyledButton onClick={signUp} style={width100} disabled={!userForm}>
+        <StyledButton onClick={signUp} style={width100} disabled={!userForm?.email}>
           Sign Up
         </StyledButton>
       </form>
