@@ -1,5 +1,5 @@
 import { useRouter } from 'next/dist/client/router';
-import { Context, createContext, useContext, useEffect, useState } from 'react';
+import { Context, createContext, useContext, useState } from 'react';
 import { AuthService } from '../api/AuthService';
 import { UserInfo } from '../type';
 
@@ -18,7 +18,10 @@ export const AuthProvider = (props: any) => {
     setLoggedUser(null);
   };
 
-  const value = { loggedUser, setLoggedUser, logout };
+  const goHome = () => router.replace('/home');
+  const goUsers = () => router.replace('/users');
+
+  const value = { loggedUser, setLoggedUser, logout, goHome, goUsers };
 
   return <authContext.Provider value={value} {...props} />;
 };

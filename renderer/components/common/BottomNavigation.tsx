@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 import { BottomNavigation, BottomNavigationAction, Paper } from '@material-ui/core';
 import { styled } from '@material-ui/styles';
 import GroupIcon from '@material-ui/icons/Group';
@@ -13,6 +13,7 @@ const StyledPaper = styled(Paper)(() => ({
 }));
 
 const FixedBottomNavigation = (): JSX.Element => {
+  const router = useRouter();
   const [value, setValue] = useState(0);
 
   return (

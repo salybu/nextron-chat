@@ -1,4 +1,4 @@
-import router from 'next/router';
+import { useRouter } from 'next/router';
 import { styled, AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import useAuth from '../../lib/context/auth';
@@ -13,6 +13,7 @@ const FixedAppBar = styled(AppBar)(({ theme }) => ({
 }));
 
 const CustomAppBar = (): JSX.Element => {
+  const router = useRouter();
   const { logout } = useAuth();
   const goBack = () => router.back();
 
