@@ -41,6 +41,12 @@ $ yarn build (or `npm run build`)
 
 ### &nbsp;
 
+## What I learned
+
+- [🌳 Environment Variables, Build mode](https://github.com/salybu/nextron-chat/blob/docs/docs/env-variable.md)
+
+### &nbsp;
+
 ## Firebase Data 구조
 
 - 채팅방
